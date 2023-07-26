@@ -142,12 +142,20 @@ class PyInstallerGUI(QMainWindow):
         self.process.start(command)
 
     def handle_stdout(self):
-        data = self.process.readAllStandardOutput().data().decode().strip()
-        self.progress_text_edit.appendPlainText(data)
+        data = self.process.readAllStandardOutput().data()
+        try:
+            text = data.decode('utf-8')
+        except UnicodeDecodeError:
+            text = data.decode('utf-8', 'replace').strip()
+        self.progress_text_edit.appendPlainText(text)
 
     def handle_stderr(self):
-        error = self.process.readAllStandardError().data().decode().strip()
-        self.progress_text_edit.appendPlainText(error)
+        error = self.process.readAllStandardError().data()
+        try:
+            text = error.decode('utf-8')
+        except UnicodeDecodeError:
+            text = error.decode('utf-8', 'replace').strip()
+        self.progress_text_edit.appendPlainText(text)
 
     # New function to handle process finish
     def process_finished(self):
