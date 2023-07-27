@@ -78,7 +78,7 @@ class PyInstallerGUI(QMainWindow):
 
         self.progress_bar = QProgressBar(self)
         self.progress_bar.move(400, 380)
-        self.progress_bar.resize(515, 30)
+        self.progress_bar.resize(460, 30)
 
         self.build_button = QPushButton('執行', self)
         self.build_button.move(400, 420)
@@ -111,7 +111,7 @@ class PyInstallerGUI(QMainWindow):
             self.icon_path_line_edit.setText(file_name)
 
     def build_command(self):
-        command = f'pyinstaller --noupx '
+        command = f'python -m PyInstaller --noupx '
         if self.package_mode_combo_box.currentText() == 'One Directory':
             command += '--onedir '
         else:
